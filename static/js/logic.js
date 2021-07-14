@@ -12,12 +12,17 @@ attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap
     accessToken: API_KEY
 });
 
-var marker = L.marker([51.5, -0.09]).addTo(map);
-var marker = L.circle([34.0522, -118.2437], {
-    radius:10000,
-    color: "yellow",
-    fillColor: "red"
-}).addTo(map);
+// An array containing each city's location, state, and population.
+let cityData = cities;
+
+cityData.forEach(function(city) {
+    console.log(city)
+    L.circleMarker(city.location, {
+        radius: city.population/100000
+    })
+    .bindPopup("<h2>" + city.city + ", " + city.state + "</h2> <hr> <h3>Population " + city.population.toLocaleString() + "</h3>")
+    .addTo(map);
+});
 
 // Then we add our 'graymap' tile layer to the map.
 streets.addTo(map);
